@@ -27,15 +27,15 @@
 
 	<connectionManager agedTimeout="-1" connectionTimeout="0" id="conMgr1" maxIdleTime="-1" maxPoolSize="100" minPoolSize="100" purgePolicy="FailingConnectionOnly" reapTime="-1"/> 
 
-	<jdbcDriver id="DerbyEmbedded" libraryRef="DerbyLib"/>
-	<library filesetRef="DerbyFileset" id="DerbyLib"/>
-	<fileset dir="${shared.resource.dir}/Daytrader7SampleDerbyLibs" id="DerbyFileset" includes="derby-10.10.1.1.jar"/>
+	<jdbcDriver id="DB2JCC" libraryRef="DB2JCCLib"/>
+	<library id="DB2JCCLib" filesetRef="DB2JCCFileset"/>
+	<fileset id="DB2JCCFileset" dir="${shared.resource.dir}/db2" includes="db2jcc4.jar"/>
 
-	<authData id="TradeDataSourceAuthData" password="db_password" user="db_username"/>
-	<authData id="TradeAdminAuthData" password="db_password" user="db_username"/>
+	<authData id="TradeDataSourceAuthData" password="db_password" user="db2insst1"/>
+	<authData id="TradeAdminAuthData" password="db_password" user="db2inst1"/>
 
-	<dataSource connectionManagerRef="conMgr1" id="DefaultDataSource" isolationLevel="TRANSACTION_READ_COMMITTED" jdbcDriverRef="DerbyEmbedded" jndiName="jdbc/TradeDataSource" statementCacheSize="60"> 
-		<properties.derby.embedded createDatabase="create" databaseName="${shared.resource.dir}/data/tradedb" password="db_password" user="db_username"/> 
+	<dataSource connectionManagerRef="conMgr1" id="DefaultDataSource" isolationLevel="TRANSACTION_READ_COMMITTED" jdbcDriverRef="DB2JCC" jndiName="jdbc/TradeDataSource" statementCacheSize="60"> 
+		<properties serverName="localhost" portNumber="50000" databaseName="tradedb" driverType="4" user="db2inst1" password="db_password"/> 
 	</dataSource>
 
 	<messagingEngine id="defaultME">
